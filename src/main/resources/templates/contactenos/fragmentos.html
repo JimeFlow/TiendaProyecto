@@ -3,156 +3,95 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/plantilla :: head}">
-        <title>TechShop</title>
+        <title>Villa Gastronomica</title>
     </head>
     <body>
-        <!-- 1 Sección para crear el boton de agregar... llamará a una ventana modal-->
         <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
             <div class="container" sec:authorize="hasRole('ROLE_USER')">
                 <div class="row">
-                    <div class="col-md-3">   
+                    <div class="col-md-3 text-center"> <!-- Añadida la clase text-center aquí -->
                         <button 
                             type="button" 
                             class="btn btn-primary btn-block" 
                             data-bs-toggle="modal" 
                             data-bs-target="#agregarCategoria">
-                            <i class="fas fa-plus"></i> [[#{contactenos.agregar}]]
+                            <i class="fas"></i> [[#{contactenos.agregar}]]
                         </button>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Formulario -->
-        <section th:fragment="formulario" class="py-4 mb-4 bg-light">
-            <div class="container" sec:authorize="hasRole('ROLE_USER')">
-                <div class="row">
-                    <div class="input-field">
-                        <label for="consulta">Indicar consulta:</label>
-                        <input type="text" id="consulta" name="consulta" required />
-                    </div>
-                    <div class="input-field">
-                        <label for="provincia">Provincia:</label>
-                        <input type="text" id="provincia" name="provincia" required />
-                    </div>
-                    <div class="input-field">
-                        <label for="email">Correo electrónico:</label>
-                        <input type="email" id="email" name="email" required />
-                    </div>
-                    <div class="input-field">
-                        <label for="nombre">Primer nombre:</label>
-                        <input type="text" id="nombre" name="nombre" required />
-                    </div>
-                    <div class="input-field">
-                        <label for="apellido">Apellido:</label>
-                        <input type="text" id="apellido" name="apellido" required />
-                    </div>
-                    <div class="input-field">
-                        <label for="asunto">Asunto:</label>
-                        <input type="text" id="asunto" name="asunto" required />
-                    </div>
-                    <div class="textarea-field">
-                        <label for="mensaje">Mensaje:</label>
-                        <textarea id="mensaje" name="mensaje" required rows="6"></textarea>
-                    </div>
-                    <div class="terms-title">Términos y Condiciones</div>
-                    <div class="input-field">
-                        <input type="checkbox" id="terminos" name="terminos" required />
-                        <label for="terminos">No soy un robot</label>
-                    </div>
-                    <div class="button-container">
-                        <button type="submit" class="submit-btn">Enviar</button>
-                        <button type="reset" class="cancel-btn">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- 2 Fragmento para agregar categoria, es la ventana modal -->
-        <section th:fragment="agregarCategoria">
-            <div id="agregarCategoria" 
-                 class="modal fade" 
-                 tabindex="-1" 
-                 aria-labelledby="exampleModalLabel" 
-                 aria-hidden="true">
-                <div class="modal-dialog modal-md">
-                    <div class="modal-content">
-                        <div class="modal-header bg-info text-white">
-                            <h5 class="modal-title">[[#{contactenos.agregar}]]</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div> 
-                        <form th:action="@{/contactenos/guardar}" th:object="${contactenos}"
-                              method="POST" class="was-validated" enctype="multipart/form-data">
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="consulta">[[#{contactenos.consulta}]]</label>
-                                    <input type="text" class="form-control" name="consulta" required="true"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="provincia">[[#{contactenos.provincia}]]</label>
-                                    <input type="text" class="form-control" name="provincia" required="true"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="correo">[[#{contactenos.correo}]]</label>
-                                    <input type="text" class="form-control" name="correo" required="true"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="nombre">[[#{contactenos.nombre}]]</label>
-                                    <input type="text" class="form-control" name="nombre" required="true"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="apellido">[[#{contactenos.apellido}]]</label>
-                                    <input type="text" class="form-control" name="apellido" required="true"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="asunto">[[#{contactenos.asunto}]]</label>
-                                    <input type="text" class="form-control" name="asunto" required="true"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="mensaje">[[#{contactenos.mensaje}]]</label>
-                                    <input type="text" class="form-control" name="mensaje" required="true"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="activo">[[#{contactenos.activo}]]</label>
-                                    <input class="form-check-input" type="checkbox" name="activo" id="activo"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="imagen">[[#{contactenos.rutaImagen}]]</label>
-                                    <input class="form-control" type="file" name="imagenFile" onchange="readURL(this);"/>
-                                    <img id="blah" src="#" alt="your image" height="200"/>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-primary" type="submit">Guardar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section>
-
-            <!-- Términos y condiciones -->
-            <div class="terms">
-                <h2>Términos y Condiciones</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor rhoncus elit, nec lacinia
-                    libero scelerisque eget.
-                </p>
-                <p>
-                    Vestibulum eu lacus et risus rhoncus facilisis. Nam nec turpis vel odio consectetur varius.
-                </p>
-                <p>
-                    Maecenas vitae fermentum neque. Fusce et ullamcorper nulla, sit amet volutpat enim.
-                </p>
-                <!-- Aquí iría el captcha -->
-                <div class="captcha-container">
-                    <input type="checkbox" id="politica-privacidad" name="politica-privacidad" required />
-                    <label for="politica-privacidad">Acepto los términos y condiciones</label>
-                </div>
-            </div>
-        </section>
-
     </body>
+
+
+    <!-- 2 Fragmento para agregar categoria, es la ventana modal -->
+    <section th:fragment="agregarCategoria">
+        <div id="agregarCategoria" 
+             class="modal fade" 
+             tabindex="-1" 
+             aria-labelledby="exampleModalLabel" 
+             aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title">[[#{contactenos.agregar}]]</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div> 
+                    <form th:action="@{/contactenos/guardar}" th:object="${contactenos}"
+                          method="POST" class="was-validated" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="consulta">[[#{contactenos.consulta}]]</label>
+                                <input type="text" class="form-control" name="consulta" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="provincia">[[#{contactenos.provincia}]]</label>
+                                <input type="text" class="form-control" name="provincia" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="correo">[[#{contactenos.correo}]]</label>
+                                <input type="text" class="form-control" name="correo" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nombre">[[#{contactenos.nombre}]]</label>
+                                <input type="text" class="form-control" name="nombre" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellido">[[#{contactenos.apellido}]]</label>
+                                <input type="text" class="form-control" name="apellido" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="asunto">[[#{contactenos.asunto}]]</label>
+                                <input type="text" class="form-control" name="asunto" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="mensaje">[[#{contactenos.mensaje}]]</label>
+                                <input type="text" class="form-control" name="mensaje" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcion">[[#{contactenos.descripcion}]]</label>
+                                <input type="text" class="form-control" name="descripcion" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Acepto los terminos y condiciones">[[#{contactenos.activo}]]</label>
+                                <input class="form-check-input" type="checkbox" name="Acepto los terminos y condiciones" id="Acepto los terminos y condiciones"/>
+                                <p>
+                                    Terminos y condiciones
+                                </p> 
+                            </div>
+                            <div class="mb-3">
+                                <label for="imagen">[[#{contactenos.rutaImagen}]]</label>
+                                <input class="form-control" type="file" name="imagenFile" onchange="readURL(this);"/>
+                                <img id="blah" src="#" alt="your image" height="200"/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit">Guardar</button>                 
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
 </html>

@@ -16,13 +16,37 @@ public class Contactenos implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_contactenos")
     private Long idContactenos;
+
+    @Column(name = "descripcion")
     private String descripcion;
+
+    @Column(name = "ruta_imagen")
     private String rutaImagen;
+
+    @Column(name = "activo")
     private boolean activo;
+
+    @Column(name = "provincia")
+    private String provincia;
+
+    @Column(name = "correo")
+    private String correo;
+
+    @Column(name = "nombre")
+    private String nombre;
+
+    @Column(name = "apellido")
+    private String apellido;
+
+    @Column(name = "asunto")
+    private String asunto;
+
+    @Column(name = "mensaje")
+    private String mensaje;
 
     @OneToMany
     @JoinColumn(name = "id_contactenos", updatable = false)
-    List<Producto> productos;
+    private List<Producto> productos;
 
     public Contactenos() {
     }
@@ -32,4 +56,5 @@ public class Contactenos implements Serializable {
         this.activo = activo;
     }
 
+    // Getters and setters
 }
